@@ -22,6 +22,7 @@ func main() {
 	rootFolder := flag.String("root", ".", "directory root to parse")
 	baseModule := flag.String("module", "", "base module to filter for")
 	targetFlag := flag.String("target", "", "output file, new is created for blank")
+	open := flag.Bool("open", true, "open the output file once rendered")
 	flag.Parse()
 
 	if *rootFolder == "" {
@@ -43,13 +44,13 @@ func main() {
 
 	log.Println("rendering to", target)
 
-	err := run(*rootFolder, *baseModule, target)
+	err := run(*rootFolder, *baseModule, target, *open)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func run(rootFolder, baseModule, target string) error {
+func run(rootFolder, baseModule, target string, open bool) error {
 	byPkg, err := searchTree(rootFolder, baseModule)
 	if err != nil {
 		return err
@@ -65,7 +66,9 @@ func run(rootFolder, baseModule, target string) error {
 		log.Fatal(err)
 	}
 
-	systemOpen(target)
+	if open {
+		systemOpen(target)
+	}
 	return nil
 }
 
