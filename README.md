@@ -5,7 +5,7 @@ A simple command line tool to analyse Go package imports and render them as a PN
 basic usage
 
 ```
-go run github.com/edofic/go_import_graph -module="mymodule"
+go run github.com/edofic/go_import_graph@latest -module="mymodule"
 ```
 
 And an image will pop up.
